@@ -1,0 +1,9 @@
+body {
+    background-color: palevioletred;
+    max-width: 500px;
+    margin: auto;
+}
+
+article + article {
+    margin-top: 10rem;
+}
