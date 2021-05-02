@@ -10,7 +10,10 @@
 
         <article>
             @foreach($posts as $post)
-                {!! $post !!}
+                <h2><a href="/posts/{{ $post->slug }}">{{ $post->title }}</a></h2>
+                <div>
+                    {{ $post->excerpt }}
+                </div>
             @endforeach
         </article>
 
