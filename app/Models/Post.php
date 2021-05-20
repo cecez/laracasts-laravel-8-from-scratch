@@ -11,6 +11,10 @@ class Post extends Model
 
     protected $with = ['category', 'author'];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
