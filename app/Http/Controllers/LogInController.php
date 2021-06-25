@@ -28,11 +28,11 @@ class LogInController extends Controller
            'password' => 'required'
         ]);
 
-        if (auth()->attempt($attributes)) {
-            session()->regenerate(); # session fixation
-            return redirect('/')->with('success', 'Now you are logged in.');
+        if (!auth()->attempt($attributes)) {
+            throw ValidationException::withMessages(['email' => 'Your credentials are invalid.']);
         }
 
-        throw ValidationException::withMessages(['email' => 'Your credentials are invalid.']);
+        session()->regenerate(); # session fixation
+        return redirect('/')->with('success', 'Now you are logged in.');
     }
 }
