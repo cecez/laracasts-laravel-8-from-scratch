@@ -23,8 +23,8 @@ class CategoryFactory extends Factory
     #[ArrayShape(['name' => "string", 'slug' => "string"])] public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word,
-            'slug' => $this->faker->unique()->slug,
+            'name' => $this->faker->unique()->word(),
+            'slug' => $this->faker->unique()->slug(),
         ];
     }
 }
