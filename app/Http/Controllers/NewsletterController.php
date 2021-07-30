@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Newsletter;
-use Illuminate\Http\Request;
+use App\Contracts\Newsletter;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 
 class NewsletterController extends Controller
@@ -11,17 +11,16 @@ class NewsletterController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  Newsletter  $newsletter
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      * @throws ValidationException
      */
-    public function __invoke(Request $request, Newsletter $newsletter)
+    public function __invoke(Newsletter $newsletter): RedirectResponse
     {
-        $request->validate(['email' => ['required', 'email']]);
+        request()->validate(['email' => ['required', 'email']]);
 
         try {
-            $newsletter->subscribe($request->email);
+            $newsletter->subscribe(request('email'));
         } catch (\Exception) {
             throw ValidationException::withMessages([
                 'email' => 'Não foi possível realizar a inscrição com este e-mail.'
